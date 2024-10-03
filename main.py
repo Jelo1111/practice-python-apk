@@ -7,13 +7,6 @@ from kivymd.uix.fitimage import FitImage
 from kivymd.uix.button import MDButton, MDButtonText
 from kivy.uix.button import Button
 from kivy.metrics import dp
-from menu import Menuscreen
-from customer_details import Secondscreen
-from coffee import CoffeeMenu
-from non_coffee import NonCoffeeMenu
-from customize import DrinkCustomization
-from cart import Cartscreen
-
 
 #window size
 Window.size = (1280, 800)
@@ -25,8 +18,6 @@ class Mainscreen(Screen):
         super().__init__(**kwargs)
 
         LabelBase.register(name="Semi-Bold", fn_regular="fonts/Poppins-SemiBold.ttf")
-       
-
         self.layout = FloatLayout()
         
         # Add the logo image
@@ -59,30 +50,13 @@ class Mainscreen(Screen):
                                     theme_width = "Custom",
                                     size_hint_x = .5,
                                     pos_hint = {"center_x": .5, "center_y": .15})
-        self.star_btn.bind(on_press=self.click_start_btn)
         self.layout.add_widget(self.star_btn)
         self.add_widget(self.layout)
-
-
-    def click_start_btn(self, instance):
-        self.manager.current = 'Second'
-        self.manager.history.append(self.name)
-
-class MyScreenManager(ScreenManager):
-    def __init__(self, **kwargs):
-        super(MyScreenManager, self).__init__(**kwargs)
-        self.history = []
 
 class KioskApp(MDApp):
      def build(self):
         sm = MyScreenManager()
         sm.add_widget(Mainscreen(name="Main"))
-        sm.add_widget(Secondscreen(name="Second"))
-        sm.add_widget(Menuscreen(name="Menu"))
-        sm.add_widget(CoffeeMenu(name="Coffee"))
-        sm.add_widget(NonCoffeeMenu(name="NonCoffee"))
-        sm.add_widget(DrinkCustomization(name="Customize"))
-        sm.add_widget(Cartscreen(name="Cart"))
         return sm
 
 if __name__ == '__main__':
